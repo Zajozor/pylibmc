@@ -64,13 +64,15 @@ if use_zlib:
 
 # Apple OS X 10.6 with Xcode 4 have Python compiled with PPC but they removed
 # support for compiling with that arch, so we have to override ARCHFLAGS.
-if sys.platform == "darwin" and not os.environ.get("ARCHFLAGS"):
-    compiler_dirn = "/usr/libexec/gcc/darwin"
-    if os.path.exists(compiler_dirn):
-        dir_items = os.listdir(compiler_dirn)
-        if "ppc" not in dir_items:
-            print("enabling osx-specific ARCHFLAGS/ppc hack", file=sys.stderr)
-            os.environ["ARCHFLAGS"] = "-arch i386 -arch x86_64"
+# if sys.platform == "darwin" and not os.environ.get("ARCHFLAGS"):
+#     compiler_dirn = "/usr/libexec/gcc/darwin"
+#     if os.path.exists(compiler_dirn):
+#         dir_items = os.listdir(compiler_dirn)
+#         if "ppc" not in dir_items:
+#             print("enabling osx-specific ARCHFLAGS/ppc hack", file=sys.stderr)
+#             os.environ["ARCHFLAGS"] = "-arch i386 -arch x86_64"
+print("using arch arm64")
+os.environ["ARCHFLAGS"] = "-arch arm64"
 
 # There's a bug in <py3 with Py_True/False that will propagate with GCC's
 # strict aliasing rules. Let's skip this flag for now.
